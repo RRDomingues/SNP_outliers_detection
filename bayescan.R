@@ -4,10 +4,6 @@
 ######################
 ######################
 
-# script extracted from: 
-https://rpubs.com/lbenestan/outlier
-
-
 # 1- Downloads package
 
 library(vcfR)
