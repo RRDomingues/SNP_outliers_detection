@@ -1,0 +1,38 @@
+################
+### BayeScan ###
+################
+
+consulte:
+https://rpubs.com/lbenestan/outlier
+
+
+O programa Bayescan instalado neste Mac é a versão 2.0, a qual não prove o Q-value e outros importantes parâmetros. Para rodar adequadamente o Bayescan, instalei e rodei no computador DELL
+
+### instalando programa ###
+
+1 - Faça Downloaded do programa
+
+2 - Permita a execução do programa
+chmod u+x BayeScan2.1_linux64bits
+
+### preparando input file a partir de vcf
+
+Use o programa R para preparar o file .bsc
+library(vcfR)
+vcf <- read.vcfR("RNAseq_mako_555loci_121samples.vcf")
+pop_map <- read.table("pop_mako_RNAseq.txt", header=TRUE, stringsAsFactors = TRUE)
+genind <- vcfR2genind(vcf)
+genind@pop <- pop_map$STRATA
+hierfstat <- genind2hierfstat(genind)
+write.bayescan(hierfstat)
+
+Agora o rode o programa no terminal 
+
+3 - rode o programa
+./BayeScan2.1_linux64bits RNAseq.bsc -n 5000 -burn 50000 -pr_odds 10000
+
+4 - command in bash to extract the third column containing the ID info of each SNPs in your vcf.
+
+ grep -v "#" RNAseq_mako_555loci_121samples.vcf | cut -f 3 > id-515snps.txt
+
+
